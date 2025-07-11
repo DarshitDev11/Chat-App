@@ -2,6 +2,7 @@ import {Server as SocketIOServer} from 'socket.io'
 import Message from './models/Messagesmodel.js';
 import Channel from './models/ChannelModel.js';
 import User from './models/Usermodel.js';
+
 const setupSocket = (server)=>{
     const io = new SocketIOServer(server,{
         cors:{
