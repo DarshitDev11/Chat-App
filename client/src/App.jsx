@@ -53,7 +53,7 @@ const App = () => {
   }, [userInfo,setUserInfo]);
 
   if(loading){
-    return <div>Loading...</div>
+    return <div className='text-white text-2xl font-bold'>Loading...</div>
   }
 
   return (
