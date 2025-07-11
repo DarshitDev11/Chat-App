@@ -24,8 +24,10 @@ export const signup = async (req,res)=>{
         console.log(token);
         res.cookie('jwt', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            secure: true,                    // ✅ Force secure always on Render HTTPS
+  sameSite: 'None',                 // ✅ Required for cross-origin cookies
             maxAge: 3 * 24 * 60 * 60 * 1000 // 3 days
         });
         
@@ -63,8 +65,10 @@ export const login = async (req,res)=>{
         console.log(token)
         res.cookie('jwt', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            secure: true,                    // ✅ Force secure always on Render HTTPS
+  sameSite: 'None',                 // ✅ Required for cross-origin cookies
             maxAge: 3 * 24 * 60 * 60 * 1000 // 3 days
         });
         res.status(200).json({user:{
