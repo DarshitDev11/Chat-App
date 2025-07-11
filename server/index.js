@@ -31,13 +31,12 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.use('/uploads/profiles', express.static(path.join(process.cwd(), 'uploads/profiles')));
-app.use('/uploads/files',express.static(path.join(process.cwd(), 'uploads/files')));
-
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/uploads/profiles', express.static(path.join(process.cwd(), 'uploads/profiles')));
+app.use('/uploads/files',express.static(path.join(process.cwd(), 'uploads/files')));
 
 
 app.use('/api/auth',authRoutes);
