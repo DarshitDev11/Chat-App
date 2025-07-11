@@ -14,6 +14,11 @@ export const signup = async (req,res)=>{
         if(!email || !password){
             return res.status(400).json({message: 'Please fill all the fields'});
         }
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: 'Email is already registered' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({email,password});
         const token = createToken(user.id)
         console.log(token);
