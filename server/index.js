@@ -17,11 +17,20 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.DB_URI;
 mongoose.connect(MONGO_URI).then(()=>{console.log('MongoDB connected')}).catch((err)=>{console.log(err)});
 
+const allowedOrigins = process.env.ORIGIN.split(',');
 app.use(cors({
-    origin: [process.env.ORIGIN],
+    origin: function(origin, callback) {
+        // allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
-}))
+}));
 
 app.use('/uploads/profiles', express.static(path.join(process.cwd(), 'uploads/profiles')));
 app.use('/uploads/files',express.static(path.join(process.cwd(), 'uploads/files')));
