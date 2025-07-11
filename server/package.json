@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index.js",
-    "start": "nodemon index.js",
-    "preinstall": "npm rebuild bcrypt --update-binary"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
