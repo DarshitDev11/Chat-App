@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.DB_URI;
 mongoose.connect(MONGO_URI).then(()=>{console.log('MongoDB connected')}).catch((err)=>{console.log(err)});
 
-const allowedOrigins = process.env.ORIGIN.split(',');
+const allowedOrigins = (process.env.ORIGIN || '').split(',').filter(Boolean);
+console.log('Allowed origins:', allowedOrigins);
 app.use(cors({
     origin: function(origin, callback) {
         // allow requests with no origin (like mobile apps, curl, etc.)
