@@ -23,9 +23,6 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
   }));
-  
-  // Handle OPTIONS requests (preflight)
-  app.options('*', cors());
 
 app.use('/uploads/profiles', express.static(path.join(process.cwd(), 'uploads/profiles')));
 app.use('/uploads/files',express.static(path.join(process.cwd(), 'uploads/files')));
@@ -35,16 +32,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Origin', process.env.ORIGIN);
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      res.header('Access-Control-Allow-Credentials', 'true');
-      return res.status(200).end();
-    }
-    next();
-  });
 
 app.use('/api/auth',authRoutes);
 app.use('/api/contacts',contactsRoutes);
